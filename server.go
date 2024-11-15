@@ -51,8 +51,11 @@ func main() {
 	r.Use(middleware.Recoverer)
 	r.Get("/health", apiToGetHealth)
 	r.Route("/user", func(r chi.Router) {
-		r.Post("/create", controller.CreateUser)
-		r.Post("/update/{userId}", controller.UpdateUser)
+		r.Post("/", controller.CreateUser)
+		r.Put("/{userId}", controller.UpdateUser)
+		r.Delete("/{userId}", controller.DeleteUser)
+		r.Get("/{userId}", controller.GetUserById)
+		r.Get("/username/{username}", controller.GetUserByUsername)
 	})
 	r.Get("/users", controller.GetAllUsers)
 
